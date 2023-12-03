@@ -22,13 +22,38 @@ def changeContrast(image):
     # cv2.destroyAllWindows()
 
 def calculateEntropy(image):
+
     img = cv2.imread(image)
     gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    width, height = gray_image.shape
+    max_value = float("-inf")
+    min_value = float("inf")
+
+    for i in range(width):
+        for j in range(height):
+            pixel_value = gray_image[i,j]
+
+            max_value = max(max_value,np.max(pixel_value))
+            min_value = min(min_value, np.min(pixel_value))
+
+
+    #calculate the contrast (formula used in the worksheet)
+    contrast = 20 * np.log10((max_value + 1) / (min_value + 1))
+
+    #calculate the average intensity (brightness)
+    brightness = np.mean(gray_image)
+
+    #calculate the entropy of an image
     _bins = 256
     hist, _ = np.histogram(gray_image.ravel(), bins=_bins, range=(0, _bins))
     prob_dist = hist / hist.sum()
     image_entropy = entropy(prob_dist, base=2)
-    print(f"Image Entropy {round(image_entropy,2)}")
+
+    print(f"Min value {min_value} | Max value {max_value}")
+
+    print(f"Entropy value {round(image_entropy,2)} | "
+          f"Brightness value {round(brightness,2)}| "
+          f"Contrast value {round(contrast,2)}")
 
 
 def obtainSpectrumModule(image):
@@ -74,10 +99,10 @@ if __name__ == "__main__":
     imageThyroid = 'Dataset/BiometricMedicalGrayscaleImages/Thyroid.tif'
     imageXRay = 'Dataset/BiometricMedicalGrayscaleImages/XRay.png'
 
-    imgRead = cv2.imread(imageCT)
-    imgSpectrumModule = obtainSpectrumModule(imageCT)
-    imgSpectrumPhase = obtainSpectrumPhase(imageCT)
-    calculateEntropy(imageCT)
+    imgRead = cv2.imread(imageFaceThermogram)
+    imgSpectrumModule = obtainSpectrumModule(imageFaceThermogram)
+    imgSpectrumPhase = obtainSpectrumPhase(imageFaceThermogram)
+    calculateEntropy(imageFaceThermogram)
 
     # Calculate histogram for one of the images
     hist_data = cv2.calcHist([imgRead], [0], None, [256], [0, 256])
