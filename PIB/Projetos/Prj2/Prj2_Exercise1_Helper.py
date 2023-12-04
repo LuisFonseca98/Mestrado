@@ -3,36 +3,54 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import entropy
 
+""""
+Applies Brightness to an image
+"""
+def applyBrightness(pathToSave,image):
 
-def changeBrightness(image):
-    img = cv2.imread(image)
-    imgBright = cv2.convertScaleAbs(img, alpha=1.5, beta=8)
-    # cv2.imshow('Image Brightness Enhanced', imgBright)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    imgRead = cv2.imread(image)
+    imgBright = cv2.convertScaleAbs(imgRead, alpha=1.5, beta=8)
 
+    cv2.imwrite(pathToSave, imgBright)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
-def changeContrast(image):
-    img = cv2.imread(image)
+"""
+Applies contrast to the image
+"""
+def applyContrast(pathToSave,image):
+
     contrast = 5.  # Contrast control ( 0 to 127)
     brightness = 2.  # Brightness control (0-100)
-    imgContrasted = cv2.addWeighted(img,contrast,img,0,brightness)
-    # cv2.imshow('Image Contrast Enhanced', imgContrasted)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
+    imgRead = cv2.imread(image)
+    imgContrasted = cv2.addWeighted(imgRead,contrast,image,0,brightness)
 
-def calculateEntropy(image):
+    cv2.imwrite(pathToSave, imgContrasted)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
-    img = cv2.imread(image)
-    gray_image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+"""
+Calculates the following values:
+->Entropy
+->Contrast
+->Brightness
+"""
+def calculateImageValues(image):
+
+    #init variables
+    imgRead = cv2.imread(image)
+    gray_image = cv2.cvtColor(imgRead, cv2.COLOR_BGR2GRAY)
     width, height = gray_image.shape
+
     max_value = float("-inf")
     min_value = float("inf")
 
+    #loop through pixel image
     for i in range(width):
         for j in range(height):
             pixel_value = gray_image[i,j]
 
+            #store the max and min pixel value of an image
             max_value = max(max_value,np.max(pixel_value))
             min_value = min(min_value, np.min(pixel_value))
 
@@ -58,10 +76,8 @@ def calculateEntropy(image):
 
 def obtainSpectrumModule(image):
 
-    # now we will be loading the image and converting it to grayscale
-    image = cv2.imread(image)
-
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    imgRead = cv2.imread(image)
+    gray = cv2.cvtColor(imgRead, cv2.COLOR_BGR2GRAY)
 
     # Compute the discrete Fourier Transform of the image
     fourier = cv2.dft(np.float32(gray), flags=cv2.DFT_COMPLEX_OUTPUT)
@@ -79,30 +95,20 @@ def obtainSpectrumModule(image):
 
 def obtainSpectrumPhase(image):
 
-    img=cv2.imread(image)
-    img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    imgRead = cv2.imread(image)
+    img = cv2.cvtColor(imgRead,cv2.COLOR_BGR2GRAY)
     dft = np.fft.fft2(img)
     dft_shift = np.fft.fftshift(dft)
     phase_spectrum = np.angle(dft_shift)
     return phase_spectrum
 
+def displayPlotImages(title,image):
 
-
-if __name__ == "__main__":
-
-    imageCT = 'Dataset/BiometricMedicalGrayscaleImages/CT.jpg'
-    imageFaceThermogram = 'Dataset/BiometricMedicalGrayscaleImages/face_thermogram.png'
-    imageFinger = 'Dataset/BiometricMedicalGrayscaleImages/finger.png'
-    imageIris = 'Dataset/BiometricMedicalGrayscaleImages/iris.png'
-    imageMR = 'Dataset/BiometricMedicalGrayscaleImages/MR.jpg'
-    imagePET = 'Dataset/BiometricMedicalGrayscaleImages/PET.png'
-    imageThyroid = 'Dataset/BiometricMedicalGrayscaleImages/Thyroid.tif'
-    imageXRay = 'Dataset/BiometricMedicalGrayscaleImages/XRay.png'
-
-    imgRead = cv2.imread(imageFaceThermogram)
-    imgSpectrumModule = obtainSpectrumModule(imageFaceThermogram)
-    imgSpectrumPhase = obtainSpectrumPhase(imageFaceThermogram)
-    calculateEntropy(imageFaceThermogram)
+    # call methods
+    imgRead = cv2.imread(image)
+    imgSpectrumModule = obtainSpectrumModule(image)
+    imgSpectrumPhase = obtainSpectrumPhase(image)
+    calculateImageValues(image)
 
     # Calculate histogram for one of the images
     hist_data = cv2.calcHist([imgRead], [0], None, [256], [0, 256])
@@ -110,9 +116,10 @@ if __name__ == "__main__":
     # Normalize the histogram
     hist_data /= hist_data.sum()
 
+    # display  images in a plot (2x2)
     plt.subplot(2, 2, 1)
     plt.imshow(imgRead, cmap='gray')
-    plt.title('Original Image')
+    plt.title(title)
     plt.axis('off')
 
     ax = plt.subplot(2, 2, 2)
@@ -134,6 +141,7 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     plt.show()
+
 
 
 
