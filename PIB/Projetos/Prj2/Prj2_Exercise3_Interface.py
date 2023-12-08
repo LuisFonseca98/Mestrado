@@ -7,21 +7,21 @@ import tkinter as tk
 Display a success or failed message according to the user input
 """
 
-def submitMessage(input_text, text_received):
+
+def submit_message(input_text, text_received):
     # display message
 
     if input_text == text_received:
-        message_title = 'Ready'
+        message_title = 'Success'
         message_text = f'Success!'
         tk.messagebox.showinfo(message_title, message_text)
     else:
-        message_title = 'Ready'
+        message_title = 'Failed'
         message_text = f'Failed!'
         tk.messagebox.showinfo(message_title, message_text)
 
 
 if __name__ == "__main__":
-
     length_of_sequence = random.randint(1, 9)
     randomWidth = random.randint(100, 300)
     randomHeight = random.randint(100, 300)
@@ -49,9 +49,10 @@ if __name__ == "__main__":
     inputBox = tk.Entry(window, font=("Times New Roman", 12))
     inputBox.grid(row=1, column=1)
 
+
     def on_click_show_message():
-        entryText = inputBox.get()
-        submitMessage(entryText, image_name)
+        entry_text = inputBox.get()
+        submit_message(entry_text, image_name)
 
     buttonSubmit = tk.Button(window, text='Submit', font=40, command=on_click_show_message)
     buttonSubmit.grid(row=2, column=0)
