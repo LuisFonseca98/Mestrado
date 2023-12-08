@@ -1,5 +1,4 @@
-#from numpy import diag_indices
-from asyncio.windows_events import NULL
+
 from datetime import datetime
 from DIP_Applications_Helper_Exercise7 import *
 from PIL import Image, ImageTk
