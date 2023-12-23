@@ -6,8 +6,6 @@ import tkinter as tk
 """
 Display a success or failed message according to the user input
 """
-
-
 def submit_message(input_text, text_received):
     # display message
 
@@ -32,6 +30,8 @@ if __name__ == "__main__":
 
     window = tk.Tk()
 
+    print(image_name)
+
     window.title('Captcha Application')
     fontStyle = ('Arial', 16)
     window.geometry('500x500')
@@ -48,7 +48,6 @@ if __name__ == "__main__":
 
     inputBox = tk.Entry(window, font=("Times New Roman", 12))
     inputBox.grid(row=1, column=1)
-
 
     def on_click_show_message():
         entry_text = inputBox.get()

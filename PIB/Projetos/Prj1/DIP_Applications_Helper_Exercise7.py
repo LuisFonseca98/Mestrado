@@ -5,25 +5,6 @@ import os
 import shutil
 import numpy as np
 
-
-# """
-# Shows the orignal image
-# TO DEBUG PURPOSE ONLY
-# """
-# def showOriginalImage(image):
-	
-# 	imgRead = cv2.imread(image)
-	
-# 	print('Orinal Image Matrix', imgRead)
-# 	cv2.imshow('Original Image', imgRead)
-
-# 	plt.title('Original Image Histogram')
-# 	plt.hist(imgRead.ravel(),256,[0,256])  
-# 	plt.show() 
-	
-# 	cv2.waitKey(0)
-# 	cv2.destroyAllWindows()
-
 # Filesystem paths
 baseSavePath = os.path.join(os.getcwd(), 'SavedPictures')
 blurredImagesPath = os.path.join(baseSavePath, 'Blur')

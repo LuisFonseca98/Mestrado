@@ -1,7 +1,7 @@
 from captcha.image import ImageCaptcha
 import random
 import string
-
+from PIL import  ImageFilter
 """
 Generates a random string, giving random numbers
 """
@@ -17,26 +17,23 @@ Generates an captcha image (jpg) with random width and height
 """
 
 
-def generate_captcha(length, width, height):
+def generate_captcha(length, width, height, image_format='jpg'):
     image = ImageCaptcha(width=width, height=height)
     captcha_text = generate_random_string(length)
-    image_path = f'SavedImages/{captcha_text}.jpg'
+
+    if image_format == 'jpg':
+        image_path = f'SavedImages/{captcha_text}.jpg'
+    elif image_format == 'png':
+        image_path = f'SavedImages/{captcha_text}.png'
+    else:
+        raise ValueError("Invalid image format. Supported formats are 'jpg' and 'png'.")
+
     data = image.generate_image(captcha_text)
     image.write(captcha_text, image_path)
-    return image_path
 
+    # Add Gaussian noise
+    data = data.filter(ImageFilter.GaussianBlur(radius=0.4))
 
-"""
-Generates an captcha image (png) with random width and height
-"""
-
-
-def generate_captcha_png(length, width, height):
-    image = ImageCaptcha(width=width, height=height)
-    captcha_text = generate_random_string(length)
-    image_path = f'SavedImages/{captcha_text}.png'
-    data = image.generate_image(captcha_text)
-    image.write(captcha_text, image_path)
     return image_path
 
 
@@ -47,8 +44,8 @@ Splits the text received in the captcha
 
 def split_text(generate_image):
     split_name = generate_image.split('/')
-    split_name[1] = split_name[1].replace('.png', '')
-    print(split_name)
+    split_name[1] = split_name[1].replace('.jpg', '')
+    print('split', split_name)
     return split_name[1]
 
 
@@ -66,9 +63,8 @@ if __name__ == "__main__":
     generate_captcha(length_of_sequence, randomWidth, randomHeight)
     generate_captcha(length_of_sequence, randomWidth, randomHeight)
 
-    ############PNG FILES#################
-    generate_captcha_png(length_of_sequence, randomWidth, randomHeight)
-    generate_captcha_png(length_of_sequence, randomWidth, randomHeight)
-    generate_captcha_png(length_of_sequence, randomWidth, randomHeight)
-    generate_captcha_png(length_of_sequence, randomWidth, randomHeight)
-    generate_captcha_png(length_of_sequence, randomWidth, randomHeight)
+    generate_captcha(length_of_sequence, randomWidth, randomHeight,'png')
+    generate_captcha(length_of_sequence, randomWidth, randomHeight,'png')
+    generate_captcha(length_of_sequence, randomWidth, randomHeight,'png')
+    generate_captcha(length_of_sequence, randomWidth, randomHeight,'png')
+    generate_captcha(length_of_sequence, randomWidth, randomHeight,'png')
