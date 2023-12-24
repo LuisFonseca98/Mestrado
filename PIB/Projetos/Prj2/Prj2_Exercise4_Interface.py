@@ -4,7 +4,6 @@ from PIL import Image, ImageTk
 from tkinter import filedialog
 import tkinter as tk
 import os
-import cv2
 
 ### Constants for camera image capture
 frameSavingPath = os.path.join(os.getcwd(), 'CapturedFrames')
