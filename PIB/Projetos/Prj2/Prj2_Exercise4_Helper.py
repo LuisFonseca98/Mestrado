@@ -1,12 +1,65 @@
+from fileinput import filename
 import cv2
-import os
 import matplotlib.pyplot as plt
+import os
+import shutil
+import numpy as np
 
+# Filesystem paths
 baseSavePath = os.path.join(os.getcwd(), 'SavedPictures')
 featureDetectionImagesPath = os.path.join(baseSavePath, 'FeatureDetection')
+
 # File extensions
 jpegExtension = '.jpg'
 pngExtension = '.png'
+
+featureDetectedFilenameSuffix = '_faceFeatures'
+"""
+Making sure required destination directories for results exist
+"""
+
+
+def setupFilesystem():
+    # base path for destination directories
+    if not os.path.exists(baseSavePath):
+        os.mkdir(baseSavePath)
+
+    # destination directories for DIP operation results
+    for path in [featureDetectionImagesPath]:
+        if not os.path.exists(path):
+            os.mkdir(path)
+
+
+"""
+Saving cv image in JPEG and PNG formats
+"""
+
+
+def saveImageInJpgAndPngFormats(image, fileName, path):
+    cv2.imwrite(os.path.join(path, fileName + jpegExtension), image)
+    cv2.imwrite(os.path.join(path, fileName + pngExtension), image)
+
+"""
+Displaying results using Maptplotlib
+Contents of 'displayData' are taken as image data except for entries which indices are contained in 'plotIndices'
+in those cases, the entries are taken as plot data
+"""
+
+
+def displayResult(displayData, titles, nRows=1, plotIndices=[]):
+    # display images with matplotlib
+    nCols = int(len(displayData) / nRows)
+    for i, image in enumerate(displayData):
+        plt.subplot(nRows, nCols, i + 1)
+        plt.title(titles[i])
+        if i in plotIndices:
+            plt.plot(image)
+        else:
+            plt.imshow(cv2.cvtColor(displayData[i], cv2.COLOR_BGR2RGB))
+            plt.xticks([])
+            plt.yticks([])
+
+    plt.show()
 
 def faceDetectionImages(imagePath):
     # extracting from path
@@ -58,30 +111,10 @@ def faceDetectionImages(imagePath):
 
     return featureDetectionImagesPath
 
-
-def face_recognition(imagePath):
-
-    img = cv2.imread(imagePath)
-    _, fileNameExt = os.path.split(imagePath)
-    fileName, _ = os.path.splitext(fileNameExt)
+if __name__ == "__main__":
 
 
-def displayResult(displayData, titles, nRows=1, plotIndices=[]):
-    # display images with matplotlib
-    nCols = int(len(displayData) / nRows)
-    for i, image in enumerate(displayData):
-        plt.subplot(nRows, nCols, i + 1)
-        plt.title(titles[i])
-        if i in plotIndices:
-            plt.plot(image)
-        else:
-            plt.imshow(cv2.cvtColor(displayData[i], cv2.COLOR_BGR2RGB))
-            plt.xticks([])
-            plt.yticks([])
-
-    plt.show()
+####METHOD CALL#####
 
 
-def saveImageInJpgAndPngFormats(image, fileName, path):
-    cv2.imwrite(os.path.join(path, fileName + jpegExtension), image)
-    cv2.imwrite(os.path.join(path, fileName + pngExtension), image)
+    faceDetectionImages('')
