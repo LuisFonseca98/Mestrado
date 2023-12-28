@@ -1,16 +1,9 @@
-from datetime import datetime
 from Prj2_Exercise4_Helper import *
 from PIL import Image, ImageTk
 from tkinter import filedialog
 import tkinter as tk
 import os
 
-### Constants for camera image capture
-frameSavingPath = os.path.join(os.getcwd(), 'CapturedFrames')
-frameNamePrefix = 'capturedFrame'
-
-
-### Miscelaneous interface related utilities
 def enableDIPButtons():
     global buttons
     for b in buttons[1:]:
@@ -34,10 +27,6 @@ def message(text, redfont=False):
     myLabel.config(text=text)
 
 
-def generateFrameName(extension='jpg'):
-    return frameNamePrefix + datetime.now().strftime("%Y%m%d_%H.%M.%S") + '.jpg'
-
-
 
 ### Opening from file
 def selectedPictureFromFile():
@@ -59,9 +48,9 @@ def selectedPictureFromFile():
     enableDIPButtons()
 
 
-### DIP functions
-
+### face features functions
 def showFaceDetection():
+
     global rootFilePath
 
     destination = faceDetectionImages(rootFilePath)
@@ -73,7 +62,15 @@ def showFaceDetection():
 
 
 def showFaceRecognition():
-    return ''
+
+    global rootFilePath
+
+    destination = process_images('Dataset/FaceRecognitionDataset',rootFilePath)
+
+    # display message
+    messageTitle = 'Ready'
+    messageText = f'Results saved into {destination}'
+    tk.messagebox.showinfo(messageTitle, messageText)
 
 
 ### Main
@@ -83,9 +80,6 @@ if __name__ == "__main__":
 
     # make sure destination directories for results exist
     setupFilesystem()
-    # destination for captured frames
-    if not os.path.exists(frameSavingPath):
-        os.mkdir(frameSavingPath)
 
     root = tk.Tk()
     root.title('DIP Application 2.0')
@@ -105,20 +99,19 @@ if __name__ == "__main__":
 
     # image acquisition buttons
     buttons = [tk.Button(buttonFrame, text="Load Image from File", font=fontStyle, command=selectedPictureFromFile)]
-    buttons[0].pack()  # grid(row=0,column=0)
+    buttons[0].pack()
     loadFromFileButton = buttons[0]
 
     # DIP buttons label
     buttonSetlabel = tk.Label(buttonFrame, text='DIP Operations', font=fontStyle, bg='white')
-    buttonSetlabel.pack(pady=20, fill=tk.X, expand=True)  # .grid(row=2,column=0, pady = 20, expand=True)
+    buttonSetlabel.pack(pady=20, fill=tk.X, expand=True)
 
     buttons.append(tk.Button(buttonFrame, text="Face Detection", font=fontStyle, command=showFaceDetection))
-    buttons[1].pack(pady=10)  # .grid(row=1,column=0)
+    buttons[1].pack(pady=10)
     faceDetection = buttons[1]
 
-    # DIP buttons
     buttons.append(tk.Button(buttonFrame, text="Face Recognition", font=fontStyle, command=showFaceRecognition))
-    buttons[2].pack(pady=10)  # .grid(row=3,column=0,padx=20,pady= 0)
+    buttons[2].pack(pady=10)
     faceRecognition = buttons[2]
 
 

@@ -8,14 +8,6 @@ baseSavePath = os.path.join(os.getcwd(), 'SavedPictures')
 featureDetectionImagesPath = os.path.join(baseSavePath, 'FaceDetection')
 featureRecognitionImagesPath = os.path.join(baseSavePath, 'FaceRecognition')
 
-
-# File extensions
-jpegExtension = '.jpg'
-pngExtension = '.png'
-
-featureDetectedFilenameSuffix = '_faceDetection'
-featureRecognitionFilenameSuffix = '_faceRecognition'
-
 """
 Making sure required destination directories for results exist
 """
@@ -36,8 +28,8 @@ Saving cv image in JPEG and PNG formats
 
 
 def saveImageInJpgAndPngFormats(image, fileName, path):
-    cv2.imwrite(os.path.join(path, fileName + jpegExtension), image)
-    cv2.imwrite(os.path.join(path, fileName + pngExtension), image)
+    cv2.imwrite(os.path.join(path, fileName), image)
+    cv2.imwrite(os.path.join(path, fileName), image)
 
 
 """
@@ -60,54 +52,6 @@ def displayResult(displayData, titles, nRows=1, plotIndices=[]):
 
     plt.show()
 
-
-def encode_faces(folder):
-    list_people_encoding = []
-
-    for filename in os.listdir(folder):
-        know_image = fr.load_image_file(f'{folder}/{filename}')
-        know_encoding = fr.face_encodings(know_image)[0]
-
-        list_people_encoding.append((know_encoding, filename))
-
-    return list_people_encoding
-
-
-def find_target_face():
-    face_location = fr.face_locations(target_image)
-
-    for person in encode_faces('Dataset/FaceRecognitionDataset'):
-        encoded_face = person[0]
-        filename = person[1]
-
-        is_target_face = fr.compare_faces(encoded_face, target_encoding, tolerance=0.55)
-        print(f'{is_target_face} {filename}')
-
-        if face_location:
-            face_number = 0
-            for location in face_location:
-                if is_target_face[face_number]:
-                    label = filename
-                    create_frame(location, label)
-                face_number += 1
-
-
-def create_frame(location, label):
-    top, right, bottom, left = location
-    cv2.rectangle(target_image, (left, top), (right, bottom), (255, 0, 0), 2)
-    cv2.rectangle(target_image, (left, bottom + 20), (right, bottom), (255, 0, 0), cv2.FILLED)
-    cv2.putText(target_image, label, (left + 3, bottom + 14), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
-
-
-def render_image(imagePath):
-    rgb_img = cv2.cvtColor(target_image, cv2.COLOR_BGR2RGB)
-    _, fileNameExt = os.path.split(imagePath)
-
-    cv2.imshow('Face Recognition', rgb_img)
-    cv2.waitKey(0)
-
-    displayResult([rgb_img], ['Face Recognition'])
-    saveImageInJpgAndPngFormats(rgb_img, 'Face Recognition Result' + fileNameExt, featureRecognitionImagesPath)
 
 def faceDetectionImages(imagePath):
 
@@ -143,28 +87,86 @@ def faceDetectionImages(imagePath):
     # Save the result
     # displaying and saving results
     displayResult([img], ['Face Detection'])
-    saveImageInJpgAndPngFormats(img, fileNameExt, featureDetectionImagesPath)
+    saveImageInJpgAndPngFormats(img, 'Face Detection Feature ' + fileNameExt, featureDetectionImagesPath)
 
     return featureDetectionImagesPath
+
+
+def process_images(folder, target_image_path):
+
+    def encode_faces(folder):
+        list_people_encoding = []
+
+        for filename in os.listdir(folder):
+            know_image = fr.load_image_file(f'{folder}/{filename}')
+            know_encoding = fr.face_encodings(know_image)[0]
+
+            list_people_encoding.append((know_encoding, filename))
+
+        return list_people_encoding
+
+    def create_frame(location, label):
+        top, right, bottom, left = location
+        cv2.rectangle(target_image, (left, top), (right, bottom), (255, 0, 0), 2)
+        cv2.rectangle(target_image, (left, bottom + 20), (right, bottom), (255, 0, 0), cv2.FILLED)
+        cv2.putText(target_image, label, (left + 3, bottom + 14), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+
+    def render_image(image):
+        rgb_img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        cv2.imshow('Face Recognition', rgb_img)
+        cv2.waitKey(0)
+
+    target_image = fr.load_image_file(target_image_path)
+    target_encoding = fr.face_encodings(target_image)[0]
+    face_location = fr.face_locations(target_image)
+    _, fileNameExt = os.path.split(target_image_path)
+
+    for person in encode_faces(folder):
+        encoded_face = person[0]
+        filename = person[1]
+
+        is_target_face = fr.compare_faces([encoded_face], target_encoding, tolerance=0.55)
+        print(f'{is_target_face} {filename}')
+
+        if face_location:
+            face_number = 0
+            for location in face_location:
+                if is_target_face[face_number]:
+                    label = filename
+                    create_frame(location, label)
+                face_number += 1
+
+    render_image(target_image)
+    displayResult([target_image], ['Face Recognition'])
+    saveImageInJpgAndPngFormats(target_image, 'Face Recognition Feature ' + fileNameExt,featureRecognitionImagesPath)
+
 
 if __name__ == "__main__":
 
     #####DATASET#########
-    image = 'Dataset/FaceRecognitionDataset/alberto.jpg'
-    image2 = 'Dataset/FaceRecognitionDataset/carlos.jpg'
-    image3 = 'Dataset/FaceRecognitionDataset/diogo.jpg'
-    imageLena = 'Dataset/FaceRecognitionDataset/Lena.jpg'
-    image5 = 'Dataset/FaceRecognitionDataset/luis.jpg'
-    image6 = 'Dataset/FaceRecognitionDataset/marco.bmp'
-    image7 = 'Dataset/FaceRecognitionDataset/mari.jpg'
-    image8 = 'Dataset/FaceRecognitionDataset/pedro.jpg'
+    image = 'Dataset/OriginalDataset/face1.jpg'
+    image2 = 'Dataset/OriginalDataset/face2.bmp'
+    image3 = 'Dataset/OriginalDataset/face3.jpg'
+    image4 = 'Dataset/OriginalDataset/face4.jpg'
+    image5 = 'Dataset/OriginalDataset/face5.jpg'
+    image6 = 'Dataset/OriginalDataset/face6.jpg'
+    image7 = 'Dataset/OriginalDataset/face7.jpg'
+    imageLena = 'Dataset/OriginalDataset/Lena.jpg'
 
-    result = faceDetectionImages(image)
+    faceDetectionImages(image)
+    process_images('Dataset/FaceRecognitionDataset',image)
 
-    print('Result saved at:', result)
+    faceDetectionImages(image2)
+    process_images('Dataset/FaceRecognitionDataset',image2)
 
-    target_image = fr.load_image_file(image)
-    target_encoding = fr.face_encodings(target_image)
+    faceDetectionImages(image3)
+    process_images('Dataset/FaceRecognitionDataset',image3)
 
-    find_target_face()
-    render_image('FaceRecognition/')
+    faceDetectionImages(image5)
+    process_images('Dataset/FaceRecognitionDataset',image5)
+
+    faceDetectionImages(image6)
+    process_images('Dataset/FaceRecognitionDataset',image6)
+
+
+
