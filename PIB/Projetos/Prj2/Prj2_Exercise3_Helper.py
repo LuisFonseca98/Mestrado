@@ -1,16 +1,13 @@
 from captcha.image import ImageCaptcha
 import random
 import string
-from PIL import  ImageFilter
+from PIL import ImageFilter
 """
 Generates a random string, giving random numbers
 """
-
-
 def generate_random_string(length):
     characters = string.ascii_letters + string.digits
     return ''.join(random.choice(characters) for _ in range(length))
-
 
 """
 Generates an captcha image (jpg) with random width and height
@@ -33,7 +30,6 @@ def generate_captcha(length, width, height, image_format='jpg'):
 
     # Add Gaussian noise
     data = data.filter(ImageFilter.GaussianBlur(radius=0.4))
-
     return image_path
 
 

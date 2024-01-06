@@ -102,7 +102,7 @@ def obtainSpectrumPhase(image):
     phase_spectrum = np.angle(dft_shift)
     return phase_spectrum
 
-def displayPlotImages(title,image):
+def displayPlotImages(title,image, titlePlot):
 
     # call methods
     imgRead = cv2.imread(image)
@@ -140,6 +140,7 @@ def displayPlotImages(title,image):
     plt.axis('off')
 
     plt.tight_layout()
+    plt.savefig(titlePlot)
     plt.show()
 
 

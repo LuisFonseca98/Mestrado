@@ -137,8 +137,11 @@ def process_images(folder, target_image_path):
                 face_number += 1
 
     render_image(target_image)
+
     displayResult([target_image], ['Face Recognition'])
     saveImageInJpgAndPngFormats(target_image, 'Face Recognition Feature ' + fileNameExt,featureRecognitionImagesPath)
+
+    return target_image
 
 
 if __name__ == "__main__":
@@ -153,19 +156,19 @@ if __name__ == "__main__":
     image7 = 'Dataset/OriginalDataset/face7.jpg'
     imageLena = 'Dataset/OriginalDataset/Lena.jpg'
 
-    faceDetectionImages(image)
+    #faceDetectionImages(image)
     process_images('Dataset/FaceRecognitionDataset',image)
 
-    faceDetectionImages(image2)
+    #faceDetectionImages(image2)
     process_images('Dataset/FaceRecognitionDataset',image2)
 
-    faceDetectionImages(image3)
+    #faceDetectionImages(image3)
     process_images('Dataset/FaceRecognitionDataset',image3)
 
-    faceDetectionImages(image5)
+    #faceDetectionImages(image5)
     process_images('Dataset/FaceRecognitionDataset',image5)
 
-    faceDetectionImages(image6)
+    #faceDetectionImages(image6)
     process_images('Dataset/FaceRecognitionDataset',image6)
 
 

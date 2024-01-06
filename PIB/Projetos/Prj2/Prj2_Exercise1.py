@@ -15,14 +15,29 @@ brightnessImage = 'Brightness'
 contrastImage = 'Contrast'
 
 #display original images without DIP
-displayPlotImages('Original Image',imageCT)
-displayPlotImages('Original Image',imageFaceThermogram)
-displayPlotImages('Original Image',imageFinger)
-displayPlotImages('Original Image',imageIris)
-displayPlotImages('Original Image',imageMR)
-displayPlotImages('Original Image',imagePET)
-displayPlotImages('Original Image',imageThyroid)
-displayPlotImages('Original Image',imageXRay)
+print('ImageCT', imageCT)
+displayPlotImages('Original Image',imageCT, pathToSavePictures + 'Plot ImageCT.png')
+print("")
+print('imageFaceThermogram', imageFaceThermogram)
+displayPlotImages('Original Image',imageFaceThermogram, pathToSavePictures + 'Plot Face Thermogram.png')
+print("")
+print('imageFinger', imageFinger)
+displayPlotImages('Original Image',imageFinger, pathToSavePictures + 'Plot Finger.png')
+print("")
+print('imageIris', imageIris)
+displayPlotImages('Original Image',imageIris, pathToSavePictures + 'Plot Iris.png')
+print("")
+print('imageMR', imageMR)
+displayPlotImages('Original Image',imageMR, pathToSavePictures + 'Plot MR.png')
+print("")
+print('imagePET', imagePET)
+displayPlotImages('Original Image',imagePET, pathToSavePictures + 'Plot PET.png')
+print("")
+print('imageThyroid', imageThyroid)
+displayPlotImages('Original Image',imageThyroid, pathToSavePictures + 'Plot Thyroid.png')
+print("")
+print('imageFinger', imageFinger)
+displayPlotImages('Original Image',imageXRay, pathToSavePictures + 'Plot Finger.png')
 
 #apply brightness to an image
 applyBrightness(pathToSavePictures + brightnessImage + '_CT_Image.jpg',imageCT)
@@ -45,10 +60,34 @@ imageThyroid_Brightness = pathToSavePictures + 'Brightness_Thyroid_Image.tiff'
 imageXRay_Brightness = pathToSavePictures + 'Brightness_XRay_Image.png'
 
 #show plot image with brightness
-displayPlotImages('Brightness Image',imageCT_Brightness)
-displayPlotImages('Brightness Image',imageFinger_Brightness)
-displayPlotImages('Brightness Image',imageIris_Brightness)
-displayPlotImages('Brightness Image',imageMR_Brightness)
-displayPlotImages('Brightness Image',imagePET_Brightness)
-displayPlotImages('Brightness Image',imageThyroid_Brightness)
-displayPlotImages('Brightness Image',imageXRay_Brightness)
+print("")
+print('Brightness Image imageCT_Brightness', imageCT_Brightness)
+displayPlotImages('Brightness Image',imageCT_Brightness, pathToSavePictures + 'Plot_CT_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceThermogram_Brightness', imageFaceThermogram_Brightness)
+displayPlotImages('Brightness Image',imageFaceThermogram_Brightness, pathToSavePictures + 'Plot_Thermogram_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceimageFinger_Brightness', imageFinger_Brightness)
+displayPlotImages('Brightness Image',imageFinger_Brightness, pathToSavePictures + 'Plot_Finger_Brightness_Image.PNG')
+
+print("")
+print('Brightness Image imageFaceimageimageIris_Brightness', imageIris_Brightness)
+displayPlotImages('Brightness Image',imageIris_Brightness, pathToSavePictures + 'Plot_Iris_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceimageimageimageMR_Brightness', imageMR_Brightness)
+displayPlotImages('Brightness Image',imageMR_Brightness, pathToSavePictures + 'Plot_MR_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceimageimageimageimagePET_Brightness', imagePET_Brightness)
+displayPlotImages('Brightness Image',imagePET_Brightness, pathToSavePictures + 'Plot_PET_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceimageThyroid_Brightness', imageThyroid_Brightness)
+displayPlotImages('Brightness Image',imageThyroid_Brightness, pathToSavePictures + 'Plot_Thyroid_Brightness_Image.png')
+
+print("")
+print('Brightness Image imageFaceimageXRay_Brightness', imageXRay_Brightness)
+displayPlotImages('Brightness Image',imageXRay_Brightness, pathToSavePictures + 'Plot_XRay_Brightness_Image.png')
