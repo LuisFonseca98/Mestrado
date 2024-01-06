@@ -62,8 +62,8 @@ if __name__ == "__main__":
     samplePath_RingOptical = 'Dataset/FingerprintDatasetAFTER/RingOptical_AfterBrightness.bmp'
     samplePath_ThumbCapacitive = 'Dataset/FingerprintDatasetAFTER/ThumbCapacitive_AfterBrightness.bmp'
 
-    #fingerPrintRecognition(samplePath_LittleOptica, 'Fingerprint_recognition_LittleOptica')
+    fingerPrintRecognition(samplePath_LittleOptica, 'Fingerprint_recognition_LittleOptica')
     #fingerPrintRecognition(samplePath_IndexCapacitive, 'Fingerprint_recognition_IndexCapacitive')
     #fingerPrintRecognition(samplePath_MediumCapacitive, 'Fingerprint_recognition_MediumCapacitive')
     #fingerPrintRecognition(samplePath_RingOptical, 'Fingerprint_recognition_RingOptical')
-    fingerPrintRecognition(samplePath_ThumbCapacitive, 'Fingerprint_recognition_ThumbCapacitive')
+    #fingerPrintRecognition(samplePath_ThumbCapacitive, 'Fingerprint_recognition_ThumbCapacitive')
