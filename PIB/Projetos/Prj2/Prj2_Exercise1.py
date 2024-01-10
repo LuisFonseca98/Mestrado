@@ -3,6 +3,37 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import entropy
 
+"""
+Converts an grayscale image to a color one using the 'colormap' function
+1. COLORMAP_AUTUMN: Shades of red and yellow.
+2. COLORMAP_BONE: Shades of gray, with a light blue tint.
+3. COLORMAP_JET: The famous Jet colormap, with blue-cyan-green-yellow-red tones.
+4. COLORMAP_WINTER: Shades of blue and green.
+5. COLORMAP_RAINBOW: A rainbow spectrum from violet to red.
+6. COLORMAP_OCEAN: Shades of blue and green.
+7. COLORMAP_SUMMER: Shades of green and yellow.
+8. COLORMAP_SPRING: Shades of magenta and yellow.
+9. COLORMAP_COOL: Shades of cyan and magenta.
+10. COLORMAP_HSV: A colormap representing values in the HSV color space.
+"""
+
+
+def convert_gray_to_pseudocolor_image(image_path, output_path, color_map_type):
+    global pseudocolor_image
+
+    if color_map_type == 'jet':
+        pseudocolor_image = cv2.applyColorMap(image_path, cv2.COLORMAP_JET)
+
+    elif color_map_type == 'HSV':
+        pseudocolor_image = cv2.applyColorMap(image_path, cv2.COLORMAP_HSV)
+
+    elif color_map_type == 'bone':
+        pseudocolor_image = cv2.applyColorMap(image_path, cv2.COLORMAP_BONE)
+
+    cv2.imwrite(output_path, pseudocolor_image)
+    return pseudocolor_image
+
+
 """"
 Applys the homomorphic filter
 """
@@ -268,8 +299,6 @@ def displayPlotImages(title, image, titlePlot):
     plt.show()
 
 
-
-
 """
 Display the original and enhanced image with erosion
 """
@@ -404,8 +433,22 @@ def displayHomomorphicFilterImage(original_image, enhanced_image, pathToSavePlot
     plt.title('Original Image')
 
     plt.subplot(1, 2, 2)
-    plt.imshow(enhanced_image, cmap='gray'),
+    plt.imshow(enhanced_image),
     plt.title('Homomorphic Filter Image')
+
+    plt.tight_layout()
+    plt.savefig(pathToSavePlot)
+    plt.show()
+
+
+def display_colored_image(original_image, output_path,color_map_type,pathToSavePlot):
+    plt.subplot(1, 2, 1)
+    plt.imshow(original_image, cmap='gray'),
+    plt.title('Original Image')
+
+    plt.subplot(1, 2, 2)
+    plt.imshow(convert_gray_to_pseudocolor_image(original_image,output_path,color_map_type)),
+    plt.title('Pseudo color Filter Image')
 
     plt.tight_layout()
     plt.savefig(pathToSavePlot)
@@ -452,169 +495,86 @@ if __name__ == "__main__":
 
     #################################EXERCISE 1 ALINEA B)###########################################
     #####################################CT IMAGE APPLY DIFFERENT FILTERS##########################################################
-    # 1) Gaussian filter image
+    #Gaussian filter image
     print("GAUSSIAN FILTER FOR THE CT IMAGE")
     displayGaussingImage(imageCT, 'CT_Gaussian', 'SavedImages/CT_Plot_Image.png')
     image_Gaussing = 'SavedImages/CT_Gaussian.png'
     calculateImageValues(image_Gaussing)
     print("")
 
-    # # 2) Laplacian Gaussian filter image
-    # print("LAPLACIAN GAUSSIAN FILTER FOR THE CT IMAGE")
-    # displayLaplacianGaussingImage(imageCT, 'CT_Laplacian_Gaussian', 'SavedImages/CT_Laplacian_Gaussing_Plot_Image.png')
-    # image_laplacian_Gaussing = 'SavedImages/CT_Laplacian_Gaussian.png'
-    # calculateImageValues(image_laplacian_Gaussing)
-    # print("")
-    #
-    # print("HOMOMORPHIC FILTER FOR THE CT IMAGE")
-    # # 3) HOMOMORPHIC FILTER
-    # original_image = cv2.imread(imageCT, cv2.IMREAD_GRAYSCALE)
-    # enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
-    # cv2.imwrite('SavedImages/CT_Homomorphic_filter_Image.png', enhanced_image)
-    # image_CT_Homomorphic = 'SavedImages/CT_Homomorphic_filter_Image.png'
-    # displayHomomorphicFilterImage(original_image,enhanced_image, 'SavedImages/CT_Homomorphic_Plot_Image.png')
-    # calculateImageValues(image_CT_Homomorphic)
-    # print("")
-
-    # #######################################FACE THERMOGRAM IMAGE APPLY DIFFERENT FILTERS##########################################################
-    #1) Gaussian filter image
-    # print("GAUSSIAN FILTER FOR THE FACE THERMOGRAM IMAGE")
-    # displayGaussingImage(imageFaceThermogram, 'Face_Thermogram_Gaussian', 'SavedImages/Face_Thermogram_Plot_Image.png')
-    # image_Gaussing = 'SavedImages/Face_Thermogram_Gaussian.png'
-    # calculateImageValues(image_Gaussing)
-    # print("")
-    #
-    # print("LAPLACIAN GAUSSIAN FILTER FOR THE FACE THERMOGRAM IMAGE")
-    # # 2) Laplacian Gaussian filter image
-    # displayLaplacianGaussingImage(imageFaceThermogram, 'Face_Thermogram_Gaussian_Laplacian_Gaussian', 'SavedImages/Face_Thermogram_Laplacian_Gaussing_Plot_Image.png')
-    # image_laplacian_Gaussing = 'SavedImages/Face_Thermogram_Gaussian_Laplacian_Gaussian.png'
-    # calculateImageValues(image_laplacian_Gaussing)
-    # print("")
-
-    print("HOMOMORPHIC FILTER FOR THE FACE THERMOGRAM IMAGE")
-    # 3) HOMOMORPHIC FILTER
-    original_image = cv2.imread(imageFaceThermogram, cv2.IMREAD_GRAYSCALE)
-    enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
-    cv2.imwrite('SavedImages/Face_Thermogram_Homomorphic_filter_Image.png', enhanced_image)
-    image_CT_Homomorphic = 'SavedImages/Face_Thermogram_Homomorphic_filter_Image.png'
-    displayHomomorphicFilterImage(original_image,enhanced_image, 'SavedImages/Face_Thermogram_Homomorphic_Plot_Image.png')
-    calculateImageValues(image_CT_Homomorphic)
-    print("")
-    #
     # #######################################FINGER IMAGE APPLY DIFFERENT FILTERS##########################################################
+
+    print("DILATATION FILTER FOR THE FINGER IMAGE")
+    # DILATION image
+    displayDilatedImage(imageFinger, 'SavedImages/Dilatation_Plot_Image.png')
+    finger_dilated = 'SavedImages/Image_Dilated.png'
+    calculateImageValues(finger_dilated)
+
     # #EROSION IMAGE
     # displayErosionImage(imageFinger,  'SavedImages/Erosion_Plot_Image.png')
     # finger_eroded = 'SavedImages/Image_Eroded.png'
     # calculateImageValues(finger_eroded)
-    #
-    print("")
-    #DILATION image
-    displayDilatedImage(imageFinger,  'SavedImages/Dilatation_Plot_Image.png')
-    finger_dilated = 'SavedImages/Image_Dilated.png'
-    calculateImageValues(finger_dilated)
 
     # print("")
     # #OPENING image
     # displayOpeningImage(imageFinger,  'SavedImages/Opening_Plot_Image.png')
     # finger_opening = 'SavedImages/Image_Opening.png'
     # calculateImageValues(finger_opening)
-    #
+
     # print("")
     # #CLOSING image
     # displayClosingImage(imageFinger,  'SavedImages/Closing_Plot_Image.png')
     # finger_closing = 'SavedImages/Image_Closing.png'
     # calculateImageValues(finger_closing)
-    #
-    # print("")
-    # ######################################IRIS BRITGHNESS ENHANCEMENT##########################################################
+
+    print("")
+    ######################################IRIS BRITGHNESS ENHANCEMENT##########################################################
     print('Brightness Image imageIris')
     displayBrightnessImage(imageIris, 'SavedImages/Brightness_Iris_Plot_Image.png')
     iris_brightness = "SavedImages/Iris_Image_Enhancement.png"
     calculateImageValues(iris_brightness)
-    #
+
     # #######################################MR IMAGE APPLY DIFFERENT FILTERS##########################################################
-    # # 1) Gaussian filter image
-    # print("GAUSSIAN FILTER FOR THE FACE MR IMAGE")
-    # displayGaussingImage(imageMR, 'MR_Gaussian', 'SavedImages/MR_Plot_Image.png')
-    # image_Gaussing = 'SavedImages/MR_Gaussian.png'
-    # calculateImageValues(image_Gaussing)
-    # print("")
-    #
-    # print("")
-    # print("LAPLACIAN GAUSSIAN FILTER FOR THE FACE MR IMAGE")
-    # # 2) Laplacian Gaussian filter image
-    # displayLaplacianGaussingImage(imageMR, 'MR_Laplacian_Gaussian','SavedImages/MR_Laplacian_Gaussing_Plot_Image.png')
-    # image_laplacian_Gaussing = 'SavedImages/MR_Laplacian_Gaussian.png'
-    # calculateImageValues(image_laplacian_Gaussing)
-    #
-    print("")
-    print("HOMOMORPHIC FILTER FOR THE MR IMAGE")
-    # 3) HOMOMORPHIC FILTER
-    original_image = cv2.imread(imageMR, cv2.IMREAD_GRAYSCALE)
-    enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
-    cv2.imwrite('SavedImages/MR_Homomorphic_filter_Image.png', enhanced_image)
-    image_MR_Homomorphic = 'SavedImages/MR_Homomorphic_filter_Image.png'
-    displayHomomorphicFilterImage(original_image,enhanced_image, 'SavedImages/MR_Homomorphic_Plot_Image.png')
-    calculateImageValues(image_MR_Homomorphic)
+    print("COLORED FILTER FOR THE MR IMAGE")
+    original_image = cv2.imread(imageMR)
+    display_colored_image(original_image,'SavedImages/MR_Colored_Image.png','jet','SavedImages/MR_Pseudocolor_Plot_Image.png')
+    image_MR_Colored = 'SavedImages/MR_Colored_Image.png'
+    calculateImageValues(image_MR_Colored)
     print("")
 
-    # #######################################PET APPLY DIFFERENT FILTERS##########################################################
-    # # 1) Gaussian filter image
-    # print(" GAUSSIAN FILTER FOR THE PET IMAGE")
-    # displayGaussingImage(imagePET, 'PET_Gaussian', 'SavedImages/PET_Plot_Image.png')
-    # image_Gaussing = 'SavedImages/PET_Gaussian.png'
-    # calculateImageValues(image_Gaussing)
-    # print("")
-    #
-    # # 2) Laplacian Gaussian filter image
-    # print("LAPLACIAN GAUSSIAN FILTER FOR THE PET IMAGE")
-    # displayLaplacianGaussingImage(imagePET, 'PET_Laplacian_Gaussian','SavedImages/PET_Laplacian_Gaussing_Plot_Image.png')
-    # image_laplacian_Gaussing = 'SavedImages/PET_Laplacian_Gaussian.png'
-    # calculateImageValues(image_laplacian_Gaussing)
-    # print("")
-    #
-    # 3) HOMOMORPHIC FILTER
+    # #######################################PET APPLY FILTERS##########################################################
+    #HOMOMORPHIC FILTER
     print("HOMOMORPHIC FILTER FOR THE PET IMAGE")
     original_image = cv2.imread(imagePET, cv2.IMREAD_GRAYSCALE)
     enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
     cv2.imwrite('SavedImages/PET_Homomorphic_filter_Image.png', enhanced_image)
-    displayHomomorphicFilterImage(original_image, enhanced_image,'SavedImages/PET_Homomorphic_Plot_Image.png')
+    displayHomomorphicFilterImage(original_image, enhanced_image, 'SavedImages/PET_Homomorphic_Plot_Image.png')
     image_PET_Homomorphic = 'SavedImages/PET_Homomorphic_filter_Image.png'
     calculateImageValues(image_PET_Homomorphic)
     print("")
 
-    # ######################################THYROID APPLY DIFFERENT FILTERS##########################################################
-    # # 1) Gaussian filter image
-    # print("GAUSSIAN FILTER FOR THE THYROID IMAGE")
-    # displayGaussingImage(imageThyroid, 'Thyroid_Gaussian', 'SavedImages/Thyroid_Plot_Image.png')
-    # image_Gaussing = 'SavedImages/Thyroid_Gaussian.png'
-    # calculateImageValues(image_Gaussing)
-    # print("")
-    #
-    # 2) Laplacian Gaussian filter image
-    print("LAPLACIAN GAUSSIAN FILTER FOR THE THYROID IMAGE")
-    displayLaplacianGaussingImage(imageThyroid, 'Thyroid_Laplacian_Gaussian','SavedImages/Thyroid_Laplacian_Gaussing_Plot_Image.png')
-    image_laplacian_Gaussing = 'SavedImages/Thyroid_Laplacian_Gaussian.png'
-    calculateImageValues(image_laplacian_Gaussing)
+    # #######################################FACE THERMOGRAM IMAGE##########################################################
+    print("COLORED FILTER FOR THE FACE THERMOGRAM IMAGE")
+    original_image = cv2.imread(imageFaceThermogram)
+    display_colored_image(original_image,'SavedImages/Face_Thermogram_Colored_Image.png','jet','SavedImages/Face_Thermogram_Pseudocolor_Plot_Image.png')
+    image_Face_Thermogram_Colored = 'SavedImages/Face_Thermogram_Colored_Image.png'
+    calculateImageValues(image_Face_Thermogram_Colored)
     print("")
-    #
-    # # 3) HOMOMORPHIC FILTER
-    # print("HOMOMORPHIC FILTER FOR THE THYROID IMAGE")
-    # original_image = cv2.imread(imageThyroid, cv2.IMREAD_GRAYSCALE)
-    # enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
-    # cv2.imwrite('SavedImages/Thyroid_Homomorphic_filter_Image.png', enhanced_image)
-    # image_thyroid_Homomorphic = 'SavedImages/Thyroid_Homomorphic_filter_Image.png'
-    # calculateImageValues(image_thyroid_Homomorphic)
-    # displayHomomorphicFilterImage(original_image, enhanced_image,'SavedImages/Thyroid_Homomorphic_Plot_Image.png')
-    # print("")
-    #
-    #
-    # # #######################################X RAY APPLY DIFFERENT FILTERS##########################################################
-    # 1) Gaussian filter image
-    print("GAUSSIAN FILTER FOR THE XRAY IMAGE")
-    displayGaussingImage(imageXRay, 'XRay_Gaussian', 'SavedImages/XRay_Plot_Image.png')
-    image_Gaussing = 'SavedImages/XRay_Gaussian.png'
-    calculateImageValues(image_Gaussing)
+
+    # # ######################################THYROID APPLY DIFFERENT FILTERS##########################################################
+    print("COLORED FILTER FOR THE THYROID IMAGE")
+    original_image = cv2.imread(imageThyroid)
+    display_colored_image(original_image,'SavedImages/Thyroid_Colored_Image.png','HSV', 'SavedImages/Thyroid_Pseudocolor_Plot_Image.png')
+    image_Thyroid_Colored = 'SavedImages/Thyroid_Colored_Image.png'
+    calculateImageValues(image_Thyroid_Colored)
+    print("")
+
+    #######################################X RAY APPLY DIFFERENT FILTERS##########################################################
+    original_image = cv2.imread(imageXRay)
+    print("COLORED FILTER FOR THE XRAY IMAGE")
+    display_colored_image(original_image, 'SavedImages/XRay_Colored.png', 'bone','SavedImages/XRay_Plot_Image.png')
+    image_xray_colored = 'SavedImages/XRay_Colored.png'
+    calculateImageValues(image_xray_colored)
     print("")
 
     # # 2) Laplacian Gaussian filter image
@@ -623,14 +583,3 @@ if __name__ == "__main__":
     # image_laplacian_Gaussing = 'SavedImages/XRay_Laplacian_Gaussian.png'
     # calculateImageValues(image_laplacian_Gaussing)
     # print("")
-    #
-    # print("HOMOMORPHIC FILTER FOR THE XRAY IMAGE")
-    # # 3) HOMOMORPHIC FILTER
-    # original_image = cv2.imread(imageXRay, cv2.IMREAD_GRAYSCALE)
-    # enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
-    # cv2.imwrite('SavedImages/XRay_Homomorphic_filter_Image.png', enhanced_image)
-    # image_XRay_Homomorphic = 'SavedImages/XRay_Homomorphic_filter_Image.png'
-    # calculateImageValues(image_XRay_Homomorphic)
-    # displayHomomorphicFilterImage(original_image, enhanced_image,'SavedImages/XRay_Homomorphic_Plot_Image.png')
-    # print("")
-

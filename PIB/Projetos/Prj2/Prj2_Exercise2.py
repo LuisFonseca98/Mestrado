@@ -155,92 +155,126 @@ def display_spatial_filter_type(image, path_to_save, filter_type):
 
 
 if __name__ == "__main__":
-    image_face = cv2.imread('Dataset/GrayscaleNoisyImages/face.bmp')
-    display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face.png')
+    ###########################################INIT VARIABLES GRAYSCALE PICS#############################################
+    # image_face = cv2.imread('Dataset/GrayscaleNoisyImages/face.bmp')
+    # display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face.png')
+    #
+    # image_face_1 = cv2.imread('Dataset/GrayscaleNoisyImages/face_1.bmp')
+    # display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_1.png')
+    #
+    # image_face_2 = cv2.imread('Dataset/GrayscaleNoisyImages/face_2.bmp')
+    # display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_2.png')
+    #
+    # image_face_3 = cv2.imread('Dataset/GrayscaleNoisyImages/face_3.bmp')
+    # display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_3.png')
+    #
+    # image_face_4 = cv2.imread('Dataset/GrayscaleNoisyImages/face_4.bmp')
+    # display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_4.png')
+    #
+    # image_face_5 = cv2.imread('Dataset/GrayscaleNoisyImages/face_5.bmp')
+    # display_without_gaussian_noise_effect(image_face_5, 'SavedImages/GrayscaleNoisyImages_face_5.png')
+    #
+    # image_face_thermogram = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram, 'SavedImages/GrayscaleNoisyImages_face_thermogram.png')
+    #
+    # image_face_thermogram_1 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_1.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram_1, 'SavedImages/GrayscaleNoisyImages_face_thermogram_1.png')
+    #
+    # image_face_thermogram_2 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_2.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram_2, 'SavedImages/GrayscaleNoisyImages_face_thermogram_2.png')
+    #
+    # image_face_thermogram_3 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_3.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram_3, 'SavedImages/GrayscaleNoisyImages_face_thermogram_3.png')
+    #
+    # image_face_thermogram_4 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_4.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram_4, 'SavedImages/GrayscaleNoisyImages_face.png_thermogram_4.png')
+    #
+    # image_face_thermogram_5 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_5.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_salt_pepper_noise(image_face_thermogram_5,'SavedImages/GrayscaleNoisyImages_face.png_thermogram_5.png')
+    #
+    # image_face_finger = cv2.imread('Dataset/GrayscaleNoisyImages/finger.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_high_pass.png', 'high_pass')
+    # display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_low_pass.png', 'low_pass')
+    # display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_band_pass.png', 'band_pass')
+    # display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_band_reject.png', 'band_reject')
+    #
+    # image_face_finger_1 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_1.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_high_pass.png','high_pass')
+    # display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_low_pass.png','low_pass')
+    # display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_band_pass.png','band_pass')
+    # display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_band_reject.png','band_reject')
+    #
+    # image_face_finger_2 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_2.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_high_pass.png','high_pass')
+    # display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_low_pass.png','low_pass')
+    # display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_band_pass.png','band_pass')
+    # display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_band_reject.png','band_reject')
+    #
+    # image_face_finger_3 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_3.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_high_pass.png','high_pass')
+    # display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_low_pass.png', 'low_pass')
+    # display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_band_pass.png', 'band_pass')
+    # display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_band_reject.png', 'band_reject')
+    #
+    # image_face_finger_4 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_4.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','high_pass')
+    # display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','low_pass')
+    # display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png', 'band_pass')
+    # display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','band_reject')
+    #
+    # image_face_finger_5 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_5.bmp', cv2.IMREAD_GRAYSCALE)
+    # display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'high_pass')
+    # display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'low_pass')
+    # display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'band_pass')
+    # display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png','band_reject')
+    #
+    # image_face_iris = cv2.imread('Dataset/GrayscaleNoisyImages/iris.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris, 'SavedImages/GrayscaleNoisyImages_face_iris.png')
+    #
+    # image_face_iris_1 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_1.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris_1, 'SavedImages/GrayscaleNoisyImages_face_iris_1.png')
+    #
+    # image_face_iris_2 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_2.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris_2, 'SavedImages/GrayscaleNoisyImages_face_iris_2.png')
+    #
+    # image_face_iris_3 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_3.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris_3, 'SavedImages/GrayscaleNoisyImages_face_iris_3.png')
+    #
+    # image_face_iris_4 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_4.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris_4, 'SavedImages/GrayscaleNoisyImages_face_iris_4.png')
+    #
+    # image_face_iris_5 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_5.bmp',cv2.IMREAD_GRAYSCALE)
+    # display_without_blur_effect(image_face_iris_5, 'SavedImages/GrayscaleNoisyImages_face_iris_5.png')
 
-    image_face_1 = cv2.imread('Dataset/GrayscaleNoisyImages/face_1.bmp')
-    display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_1.png')
+    ###########################################INIT VARIABLES RGB NOISY PICS#############################################
+    # image_face_RGB = cv2.imread('Dataset/RGBNoisyImages/face.png')
+    # display_without_salt_pepper_noise(image_face_RGB, 'SavedImages/RGB_Noisy_image_face.png')
+    #
+    # image_face_RGB_1 = cv2.imread('Dataset/RGBNoisyImages/face1.png')
+    # display_without_salt_pepper_noise(image_face_RGB_1, 'SavedImages/RGB_Noisy_image_face1.png')
+    #
+    # image_face_RGB_2 = cv2.imread('Dataset/RGBNoisyImages/face2.png')
+    # display_without_salt_pepper_noise(image_face_RGB_2, 'SavedImages/RGB_Noisy_image_face2.png')
+    #
+    # image_face_RGB_3 = cv2.imread('Dataset/RGBNoisyImages/face3.png')
+    # display_without_salt_pepper_noise(image_face_RGB_3, 'SavedImages/RGB_Noisy_image_face3.png')
+    #
+    # image_face_RGB_4 = cv2.imread('Dataset/RGBNoisyImages/face4.png')
+    # display_without_salt_pepper_noise(image_face_RGB_4, 'SavedImages/RGB_Noisy_image_face4.png')
 
-    image_face_2 = cv2.imread('Dataset/GrayscaleNoisyImages/face_2.bmp')
-    display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_2.png')
+    image_face_lena = cv2.imread('Dataset/RGBNoisyImages/lena.png')
+    image_face_lena1 = cv2.imread('Dataset/RGBNoisyImages/lena1.png')
+    image_face_lena2 = cv2.imread('Dataset/RGBNoisyImages/lena2.png')
+    image_face_lena3 = cv2.imread('Dataset/RGBNoisyImages/lena3.png')
+    image_face_lena4 = cv2.imread('Dataset/RGBNoisyImages/lena4.png')
 
-    image_face_3 = cv2.imread('Dataset/GrayscaleNoisyImages/face_3.bmp')
-    display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_3.png')
+    image_face_monarch = cv2.imread('Dataset/RGBNoisyImages/monarch.png')
+    image_face_monarch1 = cv2.imread('Dataset/RGBNoisyImages/monarch1.png')
+    image_face_monarch2 = cv2.imread('Dataset/RGBNoisyImages/monarch2.png')
+    image_face_monarch3 = cv2.imread('Dataset/RGBNoisyImages/monarch3.png')
+    image_face_monarch4 = cv2.imread('Dataset/RGBNoisyImages/monarch4.png')
 
-    image_face_4 = cv2.imread('Dataset/GrayscaleNoisyImages/face_4.bmp')
-    display_without_gaussian_noise_effect(image_face, 'SavedImages/GrayscaleNoisyImages_face_4.png')
 
-    image_face_5 = cv2.imread('Dataset/GrayscaleNoisyImages/face_5.bmp')
-    display_without_gaussian_noise_effect(image_face_5, 'SavedImages/GrayscaleNoisyImages_face_5.png')
 
-    image_face_thermogram = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram, 'SavedImages/GrayscaleNoisyImages_face_thermogram.png')
 
-    image_face_thermogram_1 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_1.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram_1, 'SavedImages/GrayscaleNoisyImages_face_thermogram_1.png')
 
-    image_face_thermogram_2 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_2.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram_2, 'SavedImages/GrayscaleNoisyImages_face_thermogram_2.png')
-
-    image_face_thermogram_3 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_3.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram_3, 'SavedImages/GrayscaleNoisyImages_face_thermogram_3.png')
-
-    image_face_thermogram_4 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_4.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram_4, 'SavedImages/GrayscaleNoisyImages_face.png_thermogram_4.png')
-
-    image_face_thermogram_5 = cv2.imread('Dataset/GrayscaleNoisyImages/face_thermogram_5.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_salt_pepper_noise(image_face_thermogram_5,'SavedImages/GrayscaleNoisyImages_face.png_thermogram_5.png')
-
-    image_face_finger = cv2.imread('Dataset/GrayscaleNoisyImages/finger.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_high_pass.png', 'high_pass')
-    display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_low_pass.png', 'low_pass')
-    display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_band_pass.png', 'band_pass')
-    display_spatial_filter_type(image_face_finger, 'SavedImages/GrayscaleNoisyImages_face_finger_band_reject.png', 'band_reject')
-
-    image_face_finger_1 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_1.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_high_pass.png','high_pass')
-    display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_low_pass.png','low_pass')
-    display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_band_pass.png','band_pass')
-    display_spatial_filter_type(image_face_finger_1, 'SavedImages/GrayscaleNoisyImages_face_finger_1_band_reject.png','band_reject')
-
-    image_face_finger_2 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_2.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_high_pass.png','high_pass')
-    display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_low_pass.png','low_pass')
-    display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_band_pass.png','band_pass')
-    display_spatial_filter_type(image_face_finger_2, 'SavedImages/GrayscaleNoisyImages_face_finger_2_band_reject.png','band_reject')
-
-    image_face_finger_3 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_3.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_high_pass.png','high_pass')
-    display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_low_pass.png', 'low_pass')
-    display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_band_pass.png', 'band_pass')
-    display_spatial_filter_type(image_face_finger_3, 'SavedImages/GrayscaleNoisyImages_face_finger_3_band_reject.png', 'band_reject')
-
-    image_face_finger_4 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_4.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','high_pass')
-    display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','low_pass')
-    display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png', 'band_pass')
-    display_spatial_filter_type(image_face_finger_4, 'SavedImages/GrayscaleNoisyImages_face_finger_4.png','band_reject')
-
-    image_face_finger_5 = cv2.imread('Dataset/GrayscaleNoisyImages/finger_5.bmp', cv2.IMREAD_GRAYSCALE)
-    display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'high_pass')
-    display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'low_pass')
-    display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png', 'band_pass')
-    display_spatial_filter_type(image_face_finger_5, 'SavedImages/GrayscaleNoisyImages_face_finger_5.png','band_reject')
-
-    image_face_iris = cv2.imread('Dataset/GrayscaleNoisyImages/iris.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris, 'SavedImages/GrayscaleNoisyImages_face_iris.png')
-
-    image_face_iris_1 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_1.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris_1, 'SavedImages/GrayscaleNoisyImages_face_iris_1.png')
-
-    image_face_iris_2 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_2.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris_2, 'SavedImages/GrayscaleNoisyImages_face_iris_2.png')
-
-    image_face_iris_3 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_3.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris_3, 'SavedImages/GrayscaleNoisyImages_face_iris_3.png')
-
-    image_face_iris_4 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_4.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris_4, 'SavedImages/GrayscaleNoisyImages_face_iris_4.png')
-
-    image_face_iris_5 = cv2.imread('Dataset/GrayscaleNoisyImages/iris_5.bmp',cv2.IMREAD_GRAYSCALE)
-    display_without_blur_effect(image_face_iris_5, 'SavedImages/GrayscaleNoisyImages_face_iris_5.png')
