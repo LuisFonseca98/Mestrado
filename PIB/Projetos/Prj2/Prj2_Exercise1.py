@@ -31,7 +31,7 @@ def convert_gray_to_pseudocolor_image(image_path, output_path, color_map_type):
         pseudocolor_image = cv2.applyColorMap(image_path, cv2.COLORMAP_BONE)
 
     cv2.imwrite(output_path, pseudocolor_image)
-    return pseudocolor_image
+    return cv2.cvtColor(pseudocolor_image, cv2.COLOR_BGR2RGB)
 
 
 """"
@@ -328,7 +328,7 @@ Display the original and enhanced image with dilation
 
 
 def displayDilatedImage(image, pathToSavePlot):
-    imgRead = cv2.imread(image)
+    imgRead = cv2.imread(image,cv2.IMREAD_GRAYSCALE)
     # display  images in a plot (2x2)
     plt.subplot(1, 2, 1)
     plt.imshow(imgRead, cmap='gray')
@@ -351,7 +351,7 @@ Display the original and enhanced image with opening
 
 
 def displayOpeningImage(image, pathToSavePlot):
-    imgRead = cv2.imread(image)
+    imgRead = cv2.imread(image,cv2.COLOR_BGR2RGB)
     # display  images in a plot (2x2)
     plt.subplot(1, 2, 1)
     plt.imshow(imgRead, cmap='gray')
@@ -374,7 +374,7 @@ Display the original and enhanced image with closing
 
 
 def displayClosingImage(image, pathToSavePlot):
-    imgRead = cv2.imread(image)
+    imgRead = cv2.imread(image,cv2.COLOR_BGR2RGB)
     # display  images in a plot (2x2)
     plt.subplot(1, 2, 1)
     plt.imshow(imgRead, cmap='gray')
@@ -392,7 +392,8 @@ def displayClosingImage(image, pathToSavePlot):
 
 
 def displayGaussingImage(image, imageName, pathToSavePlot):
-    imgRead = cv2.imread(image)
+
+    imgRead = cv2.imread(image,cv2.CAP_OPENNI_GRAY_IMAGE)
     # display  images in a plot (2x2)
     plt.subplot(1, 2, 1)
     plt.imshow(imgRead, cmap='gray')
@@ -410,7 +411,7 @@ def displayGaussingImage(image, imageName, pathToSavePlot):
 
 
 def displayLaplacianGaussingImage(image, imageName, pathToSavePlot):
-    imgRead = cv2.imread(image)
+    imgRead = cv2.imread(image,cv2.COLOR_BGR2RGB)
     # display  images in a plot (2x2)
     plt.subplot(1, 2, 1)
     plt.imshow(imgRead, cmap='gray')
@@ -433,7 +434,7 @@ def displayHomomorphicFilterImage(original_image, enhanced_image, pathToSavePlot
     plt.title('Original Image')
 
     plt.subplot(1, 2, 2)
-    plt.imshow(enhanced_image),
+    plt.imshow(cv2.cvtColor(enhanced_image,cv2.COLOR_BGR2RGB))
     plt.title('Homomorphic Filter Image')
 
     plt.tight_layout()
@@ -494,88 +495,82 @@ if __name__ == "__main__":
     # print("")
 
     #################################EXERCISE 1 ALINEA B)###########################################
-    #####################################CT IMAGE APPLY DIFFERENT FILTERS##########################################################
-    #Gaussian filter image
+    #####################################CT IMAGE##########################################################
     print("GAUSSIAN FILTER FOR THE CT IMAGE")
-    displayGaussingImage(imageCT, 'CT_Gaussian', 'SavedImages/CT_Plot_Image.png')
+    displayGaussingImage(imageCT, 'CT_Gaussian', 'SavedImages/Plot_CT_Image.png')
     image_Gaussing = 'SavedImages/CT_Gaussian.png'
     calculateImageValues(image_Gaussing)
     print("")
 
-    # #######################################FINGER IMAGE APPLY DIFFERENT FILTERS##########################################################
+    #######################################FINGER IMAGE##########################################################
 
-    print("DILATATION FILTER FOR THE FINGER IMAGE")
+    print("DILATION FILTER FOR THE FINGER IMAGE")
     # DILATION image
-    displayDilatedImage(imageFinger, 'SavedImages/Dilatation_Plot_Image.png')
+    displayDilatedImage(imageFinger, 'SavedImages/Plot_Dilatation_Image.png')
     finger_dilated = 'SavedImages/Image_Dilated.png'
     calculateImageValues(finger_dilated)
-
-    # #EROSION IMAGE
-    # displayErosionImage(imageFinger,  'SavedImages/Erosion_Plot_Image.png')
-    # finger_eroded = 'SavedImages/Image_Eroded.png'
-    # calculateImageValues(finger_eroded)
-
-    # print("")
-    # #OPENING image
-    # displayOpeningImage(imageFinger,  'SavedImages/Opening_Plot_Image.png')
-    # finger_opening = 'SavedImages/Image_Opening.png'
-    # calculateImageValues(finger_opening)
-
-    # print("")
-    # #CLOSING image
-    # displayClosingImage(imageFinger,  'SavedImages/Closing_Plot_Image.png')
-    # finger_closing = 'SavedImages/Image_Closing.png'
-    # calculateImageValues(finger_closing)
-
     print("")
-    ######################################IRIS BRITGHNESS ENHANCEMENT##########################################################
+
+    # #######################################THYROID IMAGE##########################################################
+    print("EROSION FILTER FOR THE THYROID IMAGE")
+    displayErosionImage(imageThyroid,  'SavedImages/Plot_Erosion_Image.png')
+    finger_eroded = 'SavedImages/Image_Eroded.png'
+    calculateImageValues(finger_eroded)
+    print("")
+
+    #####################################IRIS BRITGHNESS ENHANCEMENT##########################################################
     print('Brightness Image imageIris')
-    displayBrightnessImage(imageIris, 'SavedImages/Brightness_Iris_Plot_Image.png')
+    displayBrightnessImage(imageIris, 'SavedImages/Plot_Brightness_Iris_Image.png')
     iris_brightness = "SavedImages/Iris_Image_Enhancement.png"
     calculateImageValues(iris_brightness)
 
-    # #######################################MR IMAGE APPLY DIFFERENT FILTERS##########################################################
+    # #######################################MR IMAGE##########################################################
     print("COLORED FILTER FOR THE MR IMAGE")
     original_image = cv2.imread(imageMR)
-    display_colored_image(original_image,'SavedImages/MR_Colored_Image.png','jet','SavedImages/MR_Pseudocolor_Plot_Image.png')
+    display_colored_image(original_image,'SavedImages/MR_Colored_Image.png','jet','SavedImages/Plot_MR_Pseudocolor_Image.png')
     image_MR_Colored = 'SavedImages/MR_Colored_Image.png'
     calculateImageValues(image_MR_Colored)
     print("")
 
-    # #######################################PET APPLY FILTERS##########################################################
-    #HOMOMORPHIC FILTER
+    ######################################PET##########################################################
     print("HOMOMORPHIC FILTER FOR THE PET IMAGE")
     original_image = cv2.imread(imagePET, cv2.IMREAD_GRAYSCALE)
     enhanced_image = homomorphic_filter(original_image, gamma_low=0.3, gamma_high=1.5, cutoff=30)
     cv2.imwrite('SavedImages/PET_Homomorphic_filter_Image.png', enhanced_image)
-    displayHomomorphicFilterImage(original_image, enhanced_image, 'SavedImages/PET_Homomorphic_Plot_Image.png')
+    displayHomomorphicFilterImage(original_image, enhanced_image, 'SavedImages/Plot_PET_Homomorphic_Image.png')
     image_PET_Homomorphic = 'SavedImages/PET_Homomorphic_filter_Image.png'
     calculateImageValues(image_PET_Homomorphic)
     print("")
 
-    # #######################################FACE THERMOGRAM IMAGE##########################################################
+    #######################################FACE THERMOGRAM##########################################################
     print("COLORED FILTER FOR THE FACE THERMOGRAM IMAGE")
     original_image = cv2.imread(imageFaceThermogram)
-    display_colored_image(original_image,'SavedImages/Face_Thermogram_Colored_Image.png','jet','SavedImages/Face_Thermogram_Pseudocolor_Plot_Image.png')
+    display_colored_image(original_image,'SavedImages/Face_Thermogram_Colored_Image.png','jet','SavedImages/Plot_Face_Thermogram_Pseudocolor_Image.png')
     image_Face_Thermogram_Colored = 'SavedImages/Face_Thermogram_Colored_Image.png'
     calculateImageValues(image_Face_Thermogram_Colored)
     print("")
 
-    # # ######################################THYROID APPLY DIFFERENT FILTERS##########################################################
-    print("COLORED FILTER FOR THE THYROID IMAGE")
-    original_image = cv2.imread(imageThyroid)
-    display_colored_image(original_image,'SavedImages/Thyroid_Colored_Image.png','HSV', 'SavedImages/Thyroid_Pseudocolor_Plot_Image.png')
-    image_Thyroid_Colored = 'SavedImages/Thyroid_Colored_Image.png'
-    calculateImageValues(image_Thyroid_Colored)
-    print("")
-
-    #######################################X RAY APPLY DIFFERENT FILTERS##########################################################
+    ######################################X RAY APPLY##########################################################
     original_image = cv2.imread(imageXRay)
     print("COLORED FILTER FOR THE XRAY IMAGE")
-    display_colored_image(original_image, 'SavedImages/XRay_Colored.png', 'bone','SavedImages/XRay_Plot_Image.png')
+    display_colored_image(original_image, 'SavedImages/XRay_Colored.png', 'bone','SavedImages/Plot_XRay_Image.png')
     image_xray_colored = 'SavedImages/XRay_Colored.png'
     calculateImageValues(image_xray_colored)
     print("")
+
+    ##################BACKUP IN CASE ITS NEEDED IN THE FUTURE
+    # print("")
+    # #OPENING image
+    # displayOpeningImage(imageThyroid,  'SavedImages/Opening_Plot_Image.png')
+    # finger_opening = 'SavedImages/Image_Opening.png'
+    # calculateImageValues(finger_opening)
+    #
+    # print("")
+    # #CLOSING image
+    # displayClosingImage(imageThyroid,  'SavedImages/Closing_Plot_Image.png')
+    # finger_closing = 'SavedImages/Image_Closing.png'
+    # calculateImageValues(finger_closing)
+
 
     # # 2) Laplacian Gaussian filter image
     # print("GAUSSIAN LAPLACIAN FILTER FOR THE XRAY IMAGE")
