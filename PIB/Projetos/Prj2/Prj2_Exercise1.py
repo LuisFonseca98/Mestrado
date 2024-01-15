@@ -470,28 +470,28 @@ if __name__ == "__main__":
     # # ##################################EXERCISE 1 ALINEA A)###########################################
     # #display original images without DIP
     # print('ImageCT', imageCT)
-    # displayPlotImages('Original Image',imageCT,'SavedImages/Plot ImageCT.png')
+    # displayPlotImages('Original Image',imageCT,'SavedImages/Plot_ImageCT.png')
     # print("")
     # print('imageFaceThermogram', imageFaceThermogram)
-    # displayPlotImages('Original Image',imageFaceThermogram, 'SavedImages/Plot Face Thermogram.png')
+    # displayPlotImages('Original Image',imageFaceThermogram, 'SavedImages/Plot_Face_Thermogram.png')
     # print("")
     # print('imageFinger', imageFinger)
-    # displayPlotImages('Original Image',imageFinger, 'SavedImages/Plot Finger.png')
+    # displayPlotImages('Original Image',imageFinger, 'SavedImages/Plot_Finger.png')
     # print("")
     # print('imageIris', imageIris)
-    # displayPlotImages('Original Image',imageIris, 'SavedImages/Plot Iris.png')
+    # displayPlotImages('Original Image',imageIris, 'SavedImages/Plot_Iris.png')
     # print("")
     # print('imageMR', imageMR)
-    # displayPlotImages('Original Image',imageMR, 'SavedImages/Plot MR.png')
+    # displayPlotImages('Original Image',imageMR, 'SavedImages/Plot_MR.png')
     # print("")
     # print('imagePET', imagePET)
-    # displayPlotImages('Original Image',imagePET, 'SavedImages/Plot PET.png')
+    # displayPlotImages('Original Image',imagePET, 'SavedImages/Plot_PET.png')
     # print("")
     # print('imageThyroid', imageThyroid)
-    # displayPlotImages('Original Image',imageThyroid, 'SavedImages/Plot Thyroid.png')
+    # displayPlotImages('Original Image',imageThyroid, 'SavedImages/Plot_Thyroid.png')
     # print("")
     # print('imageFinger', imageFinger)
-    # displayPlotImages('Original Image',imageXRay, 'SavedImages/Plot Finger.png')
+    # displayPlotImages('Original Image',imageXRay, 'SavedImages/Plot_Finger.png')
     # print("")
 
     #################################EXERCISE 1 ALINEA B)###########################################
@@ -558,7 +558,6 @@ if __name__ == "__main__":
     calculateImageValues(image_xray_colored)
     print("")
 
-    ##################BACKUP IN CASE ITS NEEDED IN THE FUTURE
     # print("")
     # #OPENING image
     # displayOpeningImage(imageThyroid,  'SavedImages/Opening_Plot_Image.png')

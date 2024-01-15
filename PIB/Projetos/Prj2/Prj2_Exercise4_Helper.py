@@ -28,8 +28,8 @@ Saving cv image in JPEG and PNG formats
 
 
 def saveImageInJpgAndPngFormats(image, fileName, path):
-    cv2.imwrite(os.path.join(path, fileName), image)
-    cv2.imwrite(os.path.join(path, fileName), image)
+    cv2.imwrite(os.path.join(path, fileName), cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    cv2.imwrite(os.path.join(path, fileName), cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 
 
 """
@@ -55,7 +55,7 @@ def displayResult(displayData, titles, nRows=1, plotIndices=[]):
 
 def faceDetectionImages(imagePath):
 
-    img = cv2.imread(imagePath)
+    image_read = cv2.imread(imagePath)
     _, fileNameExt = os.path.split(imagePath)
 
     fileName, _ = os.path.splitext(fileNameExt)
@@ -68,42 +68,38 @@ def faceDetectionImages(imagePath):
     faceConfidenceThreshold = 0.0
 
     # Convert to grayscale for applying the classifier
-    grayImage = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.cvtColor(image_read, cv2.COLOR_BGR2GRAY)
 
     # Get a set of rectangles around faces in the image
-    faces, _, confidenceLevels = faceClassifier.detectMultiScale3(grayImage, outputRejectLevels=True)
+    faces, _, confidenceLevels = faceClassifier.detectMultiScale3(gray_image, outputRejectLevels=True)
 
     # For every face detected
     for i, (x, y, w, h) in enumerate(faces):
         if confidenceLevels[i] > faceConfidenceThreshold:
-            # Draw a rectangle around the face
-            cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
-    # Displaying and saving results
-    cv2.imshow('Face Detection', img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+            # Draw a rectangle around the face
+            cv2.rectangle(image_read, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
     # Save the result
     # displaying and saving results
-    displayResult([img], ['Face Detection'])
-    saveImageInJpgAndPngFormats(img, 'Face Detection Feature ' + fileNameExt, featureDetectionImagesPath)
+    displayResult([image_read], ['Face Detection'])
+    saveImageInJpgAndPngFormats(image_read, 'Face Detection Feature ' + fileNameExt, featureDetectionImagesPath)
 
     return featureDetectionImagesPath
 
 
-def process_images(folder, target_image_path):
+def process_images(folder_pictures, target_image_path):
 
-    def encode_faces(folder):
-        list_people_encoding = []
+    def encode_faces(folder_pictures):
+        list_people_encoded = []
 
-        for filename in os.listdir(folder):
-            know_image = fr.load_image_file(f'{folder}/{filename}')
-            know_encoding = fr.face_encodings(know_image)[0]
+        for filename in os.listdir(folder_pictures):
+            known_image = fr.load_image_file(f'{folder_pictures}/{filename}')
+            known_encoding = fr.face_encodings(known_image)[0]
 
-            list_people_encoding.append((know_encoding, filename))
+            list_people_encoded.append((known_encoding, filename))
 
-        return list_people_encoding
+        return list_people_encoded
 
     def create_frame(location, label):
         top, right, bottom, left = location
@@ -111,17 +107,12 @@ def process_images(folder, target_image_path):
         cv2.rectangle(target_image, (left, bottom + 20), (right, bottom), (255, 0, 0), cv2.FILLED)
         cv2.putText(target_image, label, (left + 3, bottom + 14), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
 
-    def render_image(image):
-        rgb_img = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        cv2.imshow('Face Recognition', rgb_img)
-        cv2.waitKey(0)
-
     target_image = fr.load_image_file(target_image_path)
     target_encoding = fr.face_encodings(target_image)[0]
     face_location = fr.face_locations(target_image)
     _, fileNameExt = os.path.split(target_image_path)
 
-    for person in encode_faces(folder):
+    for person in encode_faces(folder_pictures):
         encoded_face = person[0]
         filename = person[1]
 
@@ -135,8 +126,6 @@ def process_images(folder, target_image_path):
                     label = filename
                     create_frame(location, label)
                 face_number += 1
-
-    render_image(target_image)
 
     displayResult([target_image], ['Face Recognition'])
     saveImageInJpgAndPngFormats(target_image, 'Face Recognition Feature ' + fileNameExt,featureRecognitionImagesPath)
@@ -159,9 +148,6 @@ if __name__ == "__main__":
     #faceDetectionImages(image)
     process_images('Dataset/FaceRecognitionDataset',image)
 
-    #faceDetectionImages(image2)
-    process_images('Dataset/FaceRecognitionDataset',image2)
-
     #faceDetectionImages(image3)
     process_images('Dataset/FaceRecognitionDataset',image3)
 
@@ -170,6 +156,9 @@ if __name__ == "__main__":
 
     #faceDetectionImages(image6)
     process_images('Dataset/FaceRecognitionDataset',image6)
+
+    #faceDetectionImages(image2)
+    process_images('Dataset/FaceRecognitionDataset',image7)
 
 
 
